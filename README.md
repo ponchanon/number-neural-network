@@ -5,9 +5,7 @@ This program is my approach to solving the MNIST Digit dataset. It enables users
 
 # Requirements
 - Python 3.6 or below
-- Pygame
-- TKinter
-- Tensroflow
-- Keras
-- Numpy
-- Matplotlib
+- torch
+- pillow
+- torchvision
+- torchaudio
