@@ -1,0 +1,10 @@
+# tensorflow
+# keras
+# numpy
+# matplotlib
+# pygame
+# opencv-python
+torch
+pillow
+torchvision
+torchaudio
