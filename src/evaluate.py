@@ -4,6 +4,7 @@ from PIL import Image, ImageOps
 import torch
 from torchvision.transforms import ToTensor
 from train import ImageClassifier  # Assuming ImageClassifier is defined in train.py
+import matplotlib.pyplot as plt
 
 def predict_image(image_path, model_path="model_state.pt", device="mps"):
     # Load model
@@ -19,6 +20,13 @@ def predict_image(image_path, model_path="model_state.pt", device="mps"):
     with torch.no_grad():
         output = model(img_tensor)
         predicted_label = torch.argmax(output).item()
+        
+    # Show image with prediction
+    plt.imshow(img, cmap="gray")
+    plt.title(f"Predicted Label: {predicted_label}")
+    plt.axis('off')
+    plt.savefig(f"{image_path}_prediction.png")
+    plt.show()
 
     print(f"Predicted Label: {predicted_label}")
 

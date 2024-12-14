@@ -5,8 +5,10 @@ from torch.nn import CrossEntropyLoss
 from model import ImageClassifier
 from data_loader import get_data_loader
 from utils import get_device
+import matplotlib.pyplot as plt
 
 def train_model(epochs=10, lr=1e-3, device="mps"):
+    loss_history = []  # List to track losses
     model = ImageClassifier().to(device)
     optimizer = Adam(model.parameters(), lr=lr)
     loss_fn = CrossEntropyLoss()
@@ -27,13 +29,23 @@ def train_model(epochs=10, lr=1e-3, device="mps"):
             optimizer.step()
             
             total_loss += loss.item()
-        
-        print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss/len(data_loader)}")
+        epoch_loss = total_loss/len(data_loader)
+        loss_history.append(epoch_loss)  # Append epoch loss to history
+        print(f"Epoch {epoch+1}/{epochs}, Loss: {epoch_loss}")
 
     # torch.save(model.state_dict(), "model_state.pt")
     with open('model_state.pt', 'wb') as f: 
         save(model.state_dict(), f)
     print("Training complete! Model saved as 'model_state.pt'.")
+    
+    # Plot loss curve
+    plt.plot(range(1, epochs + 1), loss_history, marker='o')
+    plt.title("Training Loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.grid()
+    plt.savefig("training_loss_curve.png")
+    plt.show()
 
 
 if __name__ == "__main__":
