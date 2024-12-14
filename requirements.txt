@@ -1,6 +1,6 @@
 # tensorflow
 # keras
-# numpy
+# numpy==1.26.0
 # matplotlib
 # pygame
 # opencv-python
